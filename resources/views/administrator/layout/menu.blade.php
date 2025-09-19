@@ -23,7 +23,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('adminvillas/user') }}" class="nav-link">
+            <a href="{{ route('user') }}" class="nav-link">
               <i class="nav-icon fas fa-user-check"></i>
               <p>
                 User
@@ -32,18 +32,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('user') }}" class="nav-link">
+            <a href="{{ asset('administrator/banner') }}" class="nav-link">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>
-                Kamar
+                Breaking News
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('user') }}" class="nav-link">
+            <a href="{{ asset('administrator/category') }}" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Gambar Kamar
+                Kategori Produk
               </p>
             </a>
           </li>

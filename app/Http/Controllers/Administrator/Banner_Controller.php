@@ -80,10 +80,10 @@ class Banner_Controller extends Controller
     $data = [
         'title'   => 'Edit Banner',
         'banner'  => $banner,
-        'content' => 'admin/banner/edit'
+        'content' => 'administrator/banner/edit'
     ];
 
-    return view('admin/layout/wrapper', $data);
+    return view('administrator/layout/wrapper', $data);
     }
 
     // proses edit
@@ -131,7 +131,7 @@ class Banner_Controller extends Controller
     // 4. Update data
     $m_banner->edit($data);
 
-    return redirect('banner')->with(['sukses' => 'Data Telah Diedit']);
+    return redirect('administrator/banner')->with(['sukses' => 'Data Telah Diedit']);
     }
     
     //  delete
@@ -141,6 +141,6 @@ class Banner_Controller extends Controller
         $data = ['id_banner' => $id];
         $m_banner->hapus($data);   
          
-        return redirect('banner')->with(['sukses' => 'Data Telah Dihapus']);
+        return redirect('administrator/banner')->with(['sukses' => 'Data Telah Dihapus']);
    }
 }

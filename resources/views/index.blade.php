@@ -1,7 +1,7 @@
 @include('layout.head')
 @include('layout.header')
 @if(count($banner) > 0)
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="margin-top: 90px;">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="margin-top: 18px;">
     <div class="carousel-indicators">
         @foreach($banner as $index => $item)
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
