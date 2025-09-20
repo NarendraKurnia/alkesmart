@@ -48,10 +48,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('administrator/banner') }}" class="nav-link">
+            <a href="{{ asset('administrator/produk') }}" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Shift Selesai
+                Daftar Produk
               </p>
             </a>
           </li>

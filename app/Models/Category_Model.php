@@ -12,6 +12,7 @@ class Category_Model extends Model
 
     // Tambahkan ini
     protected $table = 'category';
+    protected $primaryKey = 'id_category';
 
     // Jika tidak pakai timestamps (created_at, updated_at), tambahkan:
     public $timestamps = false;
@@ -54,5 +55,9 @@ class Category_Model extends Model
         DB::table('category')
             ->where('id_category',$data['id_category'])
             ->delete();
+    }
+    public function produk()
+    {
+        return $this->hasMany(ProdukModel::class, 'category_id', 'id');
     }
 }

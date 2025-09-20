@@ -24,9 +24,10 @@
     </button>
 </div>
 @endif
+
 <body class="bg-white text-gray-800 pt-12">
   <section class="py-4">
-  <div class="bg-white py-6">
+  <div class="bg-white py-6 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
         
@@ -64,6 +65,29 @@
     </div>
   </div>
 </section>
+<div class="bg-gray-100 pb-20 py-8 px-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">KATEGORI</h1>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            @forelse ($category as $cat)
+                <a href="{{ url('produk/category/'.$cat->id_category) }}" class="category-card bg-white rounded-lg p-4 text-center shadow hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 mx-auto mb-2 flex items-center justify-center">
+                        @if($cat->gambar)
+                            <img src="{{ asset('admin/upload/category/'.$cat->gambar) }}" alt="{{ $cat->nama }}" class="w-full h-full object-cover rounded-full">
+                        @else
+                            <div class="w-full h-full bg-gray-200 rounded-full flex items-center justify-center">
+                                <i class="fas fa-folder text-gray-500"></i>
+                            </div>
+                        @endif
+                    </div>
+                    <p class="text-sm font-medium text-gray-800">{{ $cat->nama }}</p>
+                </a>
+            @empty
+                <p class="col-span-full text-center text-gray-500">Kategori tidak tersedia.</p>
+            @endforelse
+        </div>
+    </div>
+</div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
