@@ -104,164 +104,110 @@
     </div>
 
     <!-- Grid Produk -->
-    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-      <!-- Card (ulang sesuai banyak produk) -->
-      <!-- contoh 12 produk diisi statis; ganti loop jika di Blade -->
-      <!-- Mulai kartu -->
-      <div class="group">
+<div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+@foreach($products as $product)
+    <div class="group">
         <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <!-- Image -->
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+1" alt="Produk 1" class="w-full card-image">
-            <!-- Discount badge -->
-            <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">10%</div>
-            <!-- Favorite small dots -->
-            <div class="absolute right-2 top-2 flex space-x-1">
-              <button class="bg-white/70 p-1 rounded-full hover:bg-white">
-                <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172A4 4 0 017 4h6a4 4 0 013.828 1.172 4 4 0 010 5.656L10 17 3.172 10.828a4 4 0 010-5.656z"/></svg>
-              </button>
+            <div class="relative">
+                <img src="{{ asset('admin/upload/produk/'.$product->gambar) }}" 
+                     alt="{{ $product->nama }}" 
+                     class="w-full h-48 object-cover card-image">
+                @if($product->discount)
+                    <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">
+                        {{ $product->discount }}%
+                    </div>
+                @endif
             </div>
-          </div>
-
-          <!-- Body -->
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">ADVAN Workplus AMD Ryzen ...</h3>
-
-            <div class="flex items-baseline justify-between">
-              <div>
-                <div class="text-lg font-bold text-gray-900">Rp6.999.000</div>
-                <div class="text-xs text-gray-500">Rp7.599.000</div>
-              </div>
-            </div>
-
-            <div class="mt-3 flex items-center justify-between">
-              <div class="flex items-center space-x-2">
-                <div class="flex items-center text-yellow-400 text-sm">
-                  <!-- star -->
-                  <svg class="w-4 h-4 mr-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.566-.955L10 0l2.944 5.955 6.566.955-4.755 4.634 1.123 6.545z"/></svg>
-                  <span class="text-xs font-semibold text-gray-700">4.9</span>
+            <div class="p-3">
+                <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
+                    {{ \Illuminate\Support\Str::limit($product->nama, 50, ' ...') }}
+                </h3>
+                <div class="flex items-baseline justify-between">
+                    <div>
+                        <div class="text-lg font-bold text-gray-900">
+                            Rp{{ number_format($product->harga, 0, ',', '.') }}
+                        </div>
+                        @if($product->price_before)
+                            <div class="text-xs text-gray-500 line-through">
+                                Rp{{ number_format($product->price_before, 0, ',', '.') }}
+                            </div>
+                        @endif
+                    </div>
                 </div>
-                <div class="text-xs text-gray-500">• 7rb+ terjual</div>
-              </div>
 
-              <div class="text-xs text-teal-600 font-medium">ADVAN INDONESIA</div>
+                <div class="mt-3 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center text-yellow-400 text-sm">
+                            <svg class="w-4 h-4 mr-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 15l-5.878 3.09 1.123-6.545L.49 6.91l6.566-.955L10 0l2.944 5.955 6.566.955-4.755 4.634 1.123 6.545z"/>
+                            </svg>
+                            <span class="text-xs font-semibold text-gray-700">
+                                {{ number_format(rand(45,50)/10, 1) }}
+                            </span>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            • {{ rand(100, 9000) }}+ terjual
+                        </div>
+                    </div>
+                    <div class="text-xs text-teal-600 font-medium">
+                        {{ $product->brand ?? 'Toko Kami' }}
+                    </div>
+                </div>
+
+                <form class="add-to-cart-form" data-id="{{ $product->id_produk }}">
+                    @csrf
+                    <button type="submit" 
+                        class="w-full bg-teal-600 text-white py-2 px-3 rounded-lg text-sm hover:bg-teal-700">
+                        + Beli
+                    </button>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- Akhir kartu -->
-
-      <!-- Duplicate kartu (ganti data sesuai actual) -->
-      <div class="group">
-        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+2" alt="Produk 2" class="w-full card-image">
-            <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">36%</div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">HUAWEI WATCH GT 5 Series ...</h3>
-            <div class="text-lg font-bold text-gray-900">Rp2.299.000</div>
-            <div class="mt-3 flex items-center justify-between">
-              <div class="text-xs text-gray-500">⭐ 5.0 • 7rb+ terjual</div>
-              <div class="text-xs text-teal-600 font-medium">Huawei Indonesia</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- lebih banyak kartu... (copy/paste dan ubah gambar/teks/harga) -->
-      <div class="group">
-        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+3" alt="Produk 3" class="w-full card-image">
-            <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">37%</div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">Barber Daily Acne Care & Oil ...</h3>
-            <div class="text-lg font-bold text-gray-900">Rp31.500</div>
-            <div class="mt-3 flex items-center justify-between">
-              <div class="text-xs text-gray-500">⭐ 4.8 • 1rb+ terjual</div>
-              <div class="text-xs text-teal-600 font-medium">Zahra Karpasa Store</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="group">
-        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+4" alt="Product 4" class="w-full card-image">
-            <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">74%</div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">(NEW LAUNCH) Soundcore ...</h3>
-            <div class="text-lg font-bold text-gray-900">Rp289.000</div>
-            <div class="mt-3 flex items-center justify-between">
-              <div class="text-xs text-gray-500">⭐ 4.9 • 10rb+ terjual</div>
-              <div class="text-xs text-teal-600 font-medium">Anker Indonesia</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="group">
-        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+5" alt="Product 5" class="w-full card-image">
-            <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">13%</div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">HUAWEI MatePad SE 11" Table ...</h3>
-            <div class="text-lg font-bold text-gray-900">Rp2.599.000</div>
-            <div class="mt-3 flex items-center justify-between">
-              <div class="text-xs text-gray-500">⭐ 4.9 • 3rb+ terjual</div>
-              <div class="text-xs text-teal-600 font-medium">Huawei Indonesia</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="group">
-        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+6" alt="Product 6" class="w-full card-image">
-            <div class="absolute left-2 top-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">COD</div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">Lampu tenaga surya otomatis ...</h3>
-            <div class="text-lg font-bold text-gray-900">Rp69.900</div>
-            <div class="mt-3 flex items-center justify-between">
-              <div class="text-xs text-gray-500">⭐ 4.9 • 9rb+ terjual</div>
-              <div class="text-xs text-teal-600 font-medium">Edeen Mall</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Anda bisa copy-paste kartu di atas untuk menambah lebih banyak produk -->
-      <!-- contoh duplikasi lain -->
-      <div class="group">
-        <div class="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition relative">
-          <div class="relative">
-            <img src="https://via.placeholder.com/400x400.png?text=Product+7" alt="Product 7" class="w-full card-image">
-            <div class="absolute left-2 top-2 bg-pink-500 text-white text-xs font-semibold px-2 py-1 rounded shadow">59%</div>
-          </div>
-          <div class="p-3">
-            <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">Promo 4 pcs celana pendek ...</h3>
-            <div class="text-lg font-bold text-gray-900">Rp70.000</div>
-            <div class="mt-3 flex items-center justify-between">
-              <div class="text-xs text-gray-500">⭐ 4.5 • 1rb+ terjual</div>
-              <div class="text-xs text-teal-600 font-medium">Store XYZ</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ... tambahkan sesuai kebutuhan -->
     </div>
+@endforeach
+</div>
 
+<!-- Tombol Keranjang -->
+<div class="fixed bottom-0 left-0 w-full flex justify-center pb-4 z-50">
+  <button onclick="toggleCart()" 
+    class="flex items-center gap-2 bg-amber-200 hover:bg-amber-300 text-black px-6 py-3 rounded-xl shadow-md transition">
+    <i class="fas fa-shopping-cart"></i> Keranjangku (<span id="cartCount">0</span>)
+  </button>
+</div>
+
+<!-- Modal Keranjang -->
+<div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-end sm:items-center sm:justify-center z-50">
+  <div class="bg-white rounded-t-2xl sm:rounded-xl shadow-lg w-full sm:w-[600px] max-h-[90vh] overflow-y-auto p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+          <i class="fas fa-shopping-cart mr-3 text-blue-600"></i>Keranjangku
+        </h2>
+        <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+      </div>
+
+      <!-- Cart Items -->
+      <div id="cartItems" class="space-y-4">
+          <!-- Items akan di-render di sini -->
+      </div>
+
+      <!-- Total & Checkout -->
+      <div class="mt-8 pt-6 border-t border-gray-200">
+          <div class="flex justify-between items-center mb-6">
+              <span class="text-lg font-medium text-gray-700">Total</span>
+              <span id="cartTotal" class="text-xl font-bold text-blue-600">Rp0</span>
+          </div>
+
+          <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
+              <i class="fas fa-check-circle mr-2"></i>Checkout Sekarang
+          </button>
+
+          <button class="w-full mt-3 border border-blue-600 text-blue-600 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center justify-center">
+              <i class="fas fa-plus-circle mr-2"></i>Tambah Item Lainnya
+          </button>
+      </div>
+  </div>
+</div>
+
+</div>
   </div>
 @include('layout.footer')

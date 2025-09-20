@@ -122,6 +122,232 @@ document.getElementById('searchInput').addEventListener('keyup', function () {
     menu.classList.toggle('hidden');
   });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const cartModal = document.getElementById("cartModal");
+    const cartItemsContainer = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
+
+    // Toggle Modal
+    window.toggleCart = () => {
+        cartModal.classList.toggle("hidden");
+    }
+
+    // Render Keranjang
+    function renderCart(cart) {
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+        let count = 0;
+
+        for (let id in cart) {
+            const item = cart[id];
+            total += item.harga * item.quantity;
+            count += item.quantity;
+
+            const div = document.createElement("div");
+            div.classList.add("flex", "justify-between", "items-center", "border-b", "pb-2");
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <img src="/admin/upload/produk/${item.gambar}" class="w-16 h-16 object-cover rounded">
+                    <div>
+                        <h4 class="text-sm font-medium">${item.nama}</h4>
+                        <div class="text-xs text-gray-500">Rp${item.harga.toLocaleString()} x ${item.quantity}</div>
+                    </div>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <button class="text-red-500 text-sm" onclick="removeCart('${id}')">&times;</button>
+                    <div class="flex items-center gap-1">
+                        <button onclick="updateCart('${id}', -1)" class="bg-gray-200 px-2 rounded">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateCart('${id}', 1)" class="bg-gray-200 px-2 rounded">+</button>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.appendChild(div);
+        }
+
+        cartCount.textContent = count;
+        cartTotal.textContent = `Rp${total.toLocaleString()}`;
+    }
+
+    // Tambah ke Keranjang
+    document.querySelectorAll(".add-to-cart-form").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const id = this.dataset.id;
+            const token = this.querySelector('input[name="_token"]').value;
+
+            fetch(`/cart/add/${id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": token
+                },
+                body: JSON.stringify({})
+            })
+            .then(res => res.json())
+            .then(data => {
+                renderCart(data.cart);
+                toggleCart(); // otomatis buka modal setelah beli
+            });
+        });
+    });
+
+    // Update quantity
+    window.updateCart = (id, delta) => {
+        const token = document.querySelector('input[name="_token"]').value;
+
+        fetch(`/cart/update/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token
+            },
+            body: JSON.stringify({ delta })
+        })
+        .then(res => res.json())
+        .then(data => {
+            renderCart(data.cart);
+        });
+    }
+
+    // Hapus item
+    window.removeCart = (id) => {
+        const token = document.querySelector('input[name="_token"]').value;
+
+        fetch(`/cart/remove/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token
+            },
+            body: JSON.stringify({})
+        })
+        .then(res => res.json())
+        .then(data => {
+            renderCart(data.cart);
+        });
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const cartItemsContainer = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
+
+    // Toggle Modal
+    window.toggleCart = () => {
+        const modal = document.getElementById("cartModal");
+        modal.classList.toggle("hidden");
+    }
+
+    // Render Keranjang
+    function renderCart(cart) {
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
+        let count = 0;
+
+        for (let id in cart) {
+            const item = cart[id];
+            total += item.harga * item.quantity;
+            count += item.quantity;
+
+            const div = document.createElement("div");
+            div.classList.add("flex", "justify-between", "items-center", "border-b", "pb-2");
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <img src="/admin/upload/produk/${item.gambar}" class="w-16 h-16 object-cover rounded">
+                    <div>
+                        <h4 class="text-sm font-medium">${item.nama}</h4>
+                        <div class="text-xs text-gray-500">Rp${item.harga.toLocaleString()} x ${item.quantity}</div>
+                    </div>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <button class="text-red-500 text-sm" onclick="removeCart('${id}')">&times;</button>
+                    <div class="flex items-center gap-1">
+                        <button onclick="updateCart('${id}', -1)" class="bg-gray-200 px-2 rounded">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="updateCart('${id}', 1)" class="bg-gray-200 px-2 rounded">+</button>
+                    </div>
+                </div>
+            `;
+            cartItemsContainer.appendChild(div);
+        }
+
+        cartCount.textContent = count;
+        cartTotal.textContent = `Rp${total.toLocaleString()}`;
+    }
+
+    // Tambah ke Keranjang
+    document.querySelectorAll(".add-to-cart-form").forEach(form => {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const id = this.dataset.id;
+            const token = this.querySelector('input[name="_token"]').value;
+
+            fetch(`/cart/add/${id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": token
+                },
+                body: JSON.stringify({})
+            })
+            .then(res => res.json())
+            .then(data => {
+                renderCart(data.cart);
+                alert(data.message);
+            });
+        });
+    });
+
+    // Update quantity
+    window.updateCart = (id, delta) => {
+        const token = document.querySelector('input[name="_token"]').value;
+
+        fetch(`/cart/update/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token
+            },
+            body: JSON.stringify({ delta })
+        })
+        .then(res => res.json())
+        .then(data => {
+            renderCart(data.cart);
+        });
+    }
+
+    // Hapus item
+    window.removeCart = (id) => {
+        const token = document.querySelector('input[name="_token"]').value;
+
+        fetch(`/cart/remove/${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token
+            },
+            body: JSON.stringify({})
+        })
+        .then(res => res.json())
+        .then(data => {
+            renderCart(data.cart);
+        });
+    }
+
+    // Inisialisasi keranjang dari session
+    fetch('/cart/add/0') // dummy untuk load session cart, bisa diganti endpoint khusus load
+        .then(res => res.json())
+        .then(data => {
+            if(data.cart) renderCart(data.cart);
+        });
+});
+</script>
+
 
   
 </body>

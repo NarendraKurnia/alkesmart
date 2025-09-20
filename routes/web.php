@@ -4,6 +4,7 @@ use App\Http\Controllers\Administrator\Banner_Controller;
 use App\Http\Controllers\Administrator\CategoryController;
 use App\Http\Controllers\Administrator\ProdukController;
 use App\Http\Controllers\Administrator\UserController;
+use App\Http\Controllers\Public\CartController;
 use App\Http\Controllers\Public\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,3 +46,7 @@ Route::post('administrator/produk/proses-tambah', 'App\Http\Controllers\Administ
 Route::get('administrator/produk/edit/{id}', 'App\Http\Controllers\Administrator\ProdukController@edit');
 Route::post('administrator/produk/proses-edit', 'App\Http\Controllers\Administrator\ProdukController@proses_edit');
 Route::post('administrator/produk/delete/{id}', [ProdukController::class, 'delete'])->name('produk.delete');
+
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
