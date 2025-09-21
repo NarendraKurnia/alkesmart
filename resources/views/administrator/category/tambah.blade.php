@@ -24,6 +24,13 @@
 </div>
 
 <div class="form-group row">
+	<label class="col-md-3">Link Category</label>
+	<div class="col-md-9">
+		<input type="text" name="slug" class="form-control" value="{{ old('slug') }}" required>
+	</div>
+</div>
+
+<div class="form-group row">
 	<label class="col-md-3">Upload Foto Kategori</label>
 	<div class="col-md-6">
 	<input type="file" name="gambar" class="form-control" placeholder="Upload Foto" value="{{ old('gambar') }}" required>

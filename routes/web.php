@@ -4,9 +4,19 @@ use App\Http\Controllers\Administrator\Banner_Controller;
 use App\Http\Controllers\Administrator\CategoryController;
 use App\Http\Controllers\Administrator\ProdukController;
 use App\Http\Controllers\Administrator\UserController;
+use App\Http\Controllers\Public\AlatbedahController;
 use App\Http\Controllers\Public\AlatdiagnostikController;
+use App\Http\Controllers\Public\AlatibuanakController;
+use App\Http\Controllers\Public\AlatlaboratController;
+use App\Http\Controllers\pUBLIC\Alatp3kController;
+use App\Http\Controllers\Public\AlatrumahController;
+use App\Http\Controllers\Public\AlatrumkitController;
+use App\Http\Controllers\Public\AlatterapiController;
+use App\Http\Controllers\Public\APDController;
 use App\Http\Controllers\Public\CartController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\PeralatanlukaController;
+use App\Http\Controllers\Public\Produk_Controller;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -58,22 +68,5 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 
 
 // Unit
-Route::prefix('produk')->group(function () {
-    Route::get('/alatdiagnostik', [AlatdiagnostikController::class, 'alatdiagnostik'])->name('profil.alatdiagnostik');
-    Route::get('/up3sbu', [Up3sbuController::class, 'sbu'])->name('profil.up3sbu');
-    Route::get('/up3sbs', [Up3sbsController::class, 'sbs'])->name('profil.up3sbs');
-    Route::get('/up3sbb', [Up3sbbController::class, 'sbb'])->name('profil.up3sbb');
-    Route::get('/up3mojokerto', [Up3mojokertoController::class, 'mojokerto'])->name('profil.up3mojokerto');
-    Route::get('/up3gresik', [Up3gresikController::class, 'gresik'])->name('profil.up3gresik');
-    Route::get('/up3madura', [Up3maduraController::class, 'madura'])->name('profil.up3madura');
-    Route::get('/up3banyuwangi', [Up3banyuwangiController::class, 'banyuwangi'])->name('profil.up3banyuwangi');
-    Route::get('/up2d', [Up2dController::class, 'up2d'])->name('profil.up2d');
-    Route::get('/up3malang', [Up3malangController::class, 'malang'])->name('profil.up3malang');
-    Route::get('/up3sidoarjo', [Up3sidoarjoController::class, 'sidoarjo'])->name('profil.up3sidoarjo');
-    Route::get('/up3madiun', [Up3madiunController::class, 'madiun'])->name('profil.up3madiun');
-    Route::get('/up3pasuruan', [Up3pasuruanController::class, 'pasuruan'])->name('profil.up3pasuruan');
-    Route::get('/up3bojonegoro', [Up3bojonegoroController::class, 'bojonegoro'])->name('profil.up3bojonegoro');
-    Route::get('/up3kediri', [Up3kediriController::class, 'kediri'])->name('profil.up3kediri');
-    Route::get('/up3ponorogo', [Up3ponorogoController::class, 'ponorogo'])->name('profil.up3ponorogo');
-    Route::get('/up3situbondo', [Up3situbondoController::class, 'situbondo'])->name('profil.up3situbondo');
-});
+Route::get('/category/{slug}', [Produk_Controller::class, 'byCategory'])->name('produk.category');
+

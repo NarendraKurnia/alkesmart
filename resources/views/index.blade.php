@@ -69,8 +69,8 @@
     <div class="max-w-6xl mx-auto">
         <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">KATEGORI</h1>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            @forelse ($category as $cat)
-                <a href="{{ url('produk/category/'.$cat->id_category) }}" class="category-card bg-white rounded-lg p-4 text-center shadow hover:shadow-lg transition duration-300">
+            @forelse ($categories as $cat)
+                <a href="{{ route('produk.category', $cat->slug) }}" class="category-card bg-white rounded-lg p-4 text-center shadow hover:shadow-lg transition duration-300">
                     <div class="w-20 h-20 mx-auto mb-2 flex items-center justify-center">
                         @if($cat->gambar)
                             <img src="{{ asset('admin/upload/category/'.$cat->gambar) }}" alt="{{ $cat->nama }}" class="w-full h-full object-cover rounded-full">
@@ -99,8 +99,9 @@
       </div>
 
       <div class="text-sm text-gray-500">
-        Menampilkan <span class="font-medium text-gray-700">24</span> produk
-      </div>
+        Menampilkan <span class="font-medium text-gray-700">{{ $products->count() }}</span> produk
+    </div>
+
     </div>
 
     <!-- Grid Produk -->

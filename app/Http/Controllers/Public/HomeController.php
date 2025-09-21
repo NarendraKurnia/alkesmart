@@ -20,7 +20,7 @@ class HomeController extends Controller
 
         return view('index', [ 
             'title' => 'Alkesmart',
-            'category' => $category,
+            'categories' => $category,
             'banner'  => $banner,
             'products' => $produk
         ]);
@@ -54,4 +54,12 @@ class HomeController extends Controller
             'latestProducts' => $produk_terkini
         ]);
     }
+    public function byCategory($slug)
+{
+    $categories = Category_Model::all(); // semua kategori
+    $category = Category_Model::where('slug', $slug)->firstOrFail(); // kategori yang dipilih
+    $products = ProdukModel::where('category_id', $category->id)->get();
+
+    return view('produk.category', compact('categories', 'category', 'products'));
+}
 }

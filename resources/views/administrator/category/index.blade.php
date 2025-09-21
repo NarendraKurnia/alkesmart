@@ -27,6 +27,7 @@
             <th class="text-center">NO</th>
             <th>GAMBAR</th>
             <th>NAMA</th>
+            <th>Link Category</th>
             <th>UPDATE</th>
             <th>ACTION</th>
         </tr>
@@ -44,6 +45,7 @@
                 @endif
             </td>
             <td><?php echo $category->nama ?></td>
+            <td><?php echo $category->slug ?></td>
             <td>{{ $category->tanggal_update ?? '-' }}</td>
             <td>
                 <div class="btn-group">

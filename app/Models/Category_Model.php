@@ -37,7 +37,7 @@ class Category_Model extends Model
         $query = DB::table('category')
             ->select('*')
             ->where('id_category', $id_category)
-            ->orderBy('id_categor','DESC')
+            ->orderBy('id_category','DESC')
             ->first();
         return $query;
     }

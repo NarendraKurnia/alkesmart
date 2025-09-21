@@ -9,14 +9,21 @@ use Illuminate\Http\Request;
 
 class AlatdiagnostikController extends Controller
 {
-    //Index
-    public function index(Request $request)
+    public function alatdiagnostik(Request $request)
     {
-        $category = Category_Model::all();
-        $produk = ProdukModel::all();
+        // Ambil kategori "alatdiagnostik"
+        $category = Category_Model::where('nama', 'Alat Diagnostik')->first();
 
-        return view('index', [ 
-            'title' => 'Alkesmart',
+        // Jika kategori tidak ada
+        if (!$category) {
+            abort(404, 'Kategori tidak ditemukan');
+        }
+
+        // Ambil produk berdasarkan category_id
+        $produk = ProdukModel::where('category_id', $category->id_category)->get();
+
+        return view('produk.alatdiagnostik', [ 
+            'title' => 'Alkesmart - Alat Diagnostik',
             'category' => $category,
             'products' => $produk
         ]);

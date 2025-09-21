@@ -51,6 +51,7 @@ class CategoryController extends Controller
         $m_banner     = new Category_Model();
         request()->validate([
                                     'nama'   => 'required',
+                                    'slug'   => 'required',
                                     'gambar'  => 'nullable|file|image|mimes:jpeg,png,jpg|max:8024',
                                 ]);
         // proses data input
@@ -63,6 +64,7 @@ class CategoryController extends Controller
             $image->move($destinationPath, $input['nama_file']);
 
         $data   = [     'nama'          => $request->nama,
+                        'slug'          => $request->slug,
                         'gambar'   	    => $input['nama_file']
                     ];
                   }              
@@ -98,6 +100,7 @@ class CategoryController extends Controller
     // 1. Validasi
     $request->validate([
         'nama'     => 'required',
+        'slug'     => 'required',
         'gambar'   => 'nullable|file|image|mimes:jpeg,png,jpg|max:8024',
     ]);
 
@@ -105,6 +108,7 @@ class CategoryController extends Controller
     $data = [
         'id_category' => $id_category,
         'nama'        => $request->nama,
+        'slug'        => $request->slug,
     ];
 
     // 3. Jika ada gambar baru diupload
