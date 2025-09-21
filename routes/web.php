@@ -34,6 +34,18 @@ Route::post('administrator/user/delete/{id}', [UserController::class, 'delete'])
 Route::get('administrator/user/ganti-password', [UserController::class, 'ganti_password'])->name('user.ganti_password');
 Route::post('administrator/user/ganti-password/proses', [UserController::class, 'proses_ganti_password'])->name('user.proses_ganti_password');
 
+//halaman login
+Route::get('administrator/login', 'App\Http\Controllers\Administrator\LoginController@index')->name('administrator.login'); 
+Route::get('administrator/lupa-password', 'App\Http\Controllers\Administrator\LoginController@lupa_password')->name('administrator.lupa_password');
+Route::post('administrator/cek-login', 'App\Http\Controllers\Administrator\LoginController@cek_login')->name('administrator.cek_login');
+Route::get('administrator/logout', 'App\Http\Controllers\Administrator\LoginController@logout')->name('administrator.logout');
+
+// Form Ganti Password
+Route::get('akun', 'App\Http\Controllers\Admin\Login@edit')->name('akun.edit');
+
+// Proses Ganti Password
+Route::post('akun', 'App\Http\Controllers\Admin\Login@proses_edit')->name('akun.proses_edit');
+
 // cATEGORY
 Route::get('administrator/banner', 'App\Http\Controllers\Administrator\Banner_Controller@index');
 Route::get('administrator/banner/tambah', 'App\Http\Controllers\Administrator\Banner_Controller@tambah');

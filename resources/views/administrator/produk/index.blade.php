@@ -64,10 +64,10 @@
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target={{"#exampleModal1" . $item->id_produk}}>
                     <i class="fa fa-eye"></i>
                     @php
-                        $unit_id = session('pegawai_id');
+                        $pegawai_id = session('pegawai_id');
                     @endphp
 
-                    @if ($unit_id != 1)
+                    @if ($pegawai_id != 3)
                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="{{ '#exampleModal2' . $item->id_produk }}"> 
                         <i class="fa fa-trash"></i>
                     </button>
