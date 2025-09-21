@@ -120,8 +120,10 @@
             </div>
             <div class="p-3">
                 <h3 class="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
-                    {{ \Illuminate\Support\Str::limit($product->nama, 50, ' ...') }}
-                </h3>
+    <a href="{{ route('produk.detail', $product->id_produk) }}" class="hover:text-blue-600 transition-colors">
+        {{ \Illuminate\Support\Str::limit($product->nama, 50, ' ...') }}
+    </a>
+</h3>
                 <div class="flex items-baseline justify-between">
                     <div>
                         <div class="text-lg font-bold text-gray-900">

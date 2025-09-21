@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    //
+    //index
     public function index(Request $request)
     {
         $banner = Banner_Model::all();
@@ -23,6 +23,35 @@ class HomeController extends Controller
             'category' => $category,
             'banner'  => $banner,
             'products' => $produk
+        ]);
+    }
+    public function detailProduk($id)
+    {
+        $category = Category_Model::all();
+        $produk = ProdukModel::all();
+
+
+        $produk = ProdukModel::with('category')
+                   ->where('id_produk', $id)
+                   ->firstOrFail();
+
+        $produk_terkini = ProdukModel::with('category')
+            ->where('id_produk', '!=', $id)
+            ->orderBy('id_produk', 'DESC')
+            ->take(4)
+            ->get();
+
+        $key = 'produk_viewed_' . $produk->id_produk;
+        if (!session()->has($key)) {
+
+            session()->put($key, true);
+        }
+
+        return view('produk.detail', [
+            'product'  => $produk,
+            'category'  => $category,
+            'title'     => $produk->nama,
+            'latestProducts' => $produk_terkini
         ]);
     }
 }
