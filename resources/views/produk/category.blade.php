@@ -112,13 +112,17 @@
               <span id="cartTotal" class="text-xl font-bold text-blue-600">Rp0</span>
           </div>
 
-          <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
-              <i class="fas fa-check-circle mr-2"></i>Checkout Sekarang
-          </button>
-
-          <button class="w-full mt-3 border border-blue-600 text-blue-600 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center justify-center">
-              <i class="fas fa-plus-circle mr-2"></i>Tambah Item Lainnya
-          </button>
+          @if(session()->has('user_id'))
+    <form action="{{ route('checkout.index') }}" method="get">
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
+            <i class="fas fa-check-circle mr-2"></i>Checkout Sekarang
+        </button>
+    </form>
+@else
+    <a href="{{ route('login') }}" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center text-center">
+        <i class="fas fa-check-circle mr-2"></i>Login dulu untuk checkout
+    </a>
+@endif
       </div>
   </div>
 </div>

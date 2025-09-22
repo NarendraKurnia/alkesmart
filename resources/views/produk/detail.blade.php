@@ -109,10 +109,6 @@
                         <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
                             <i class="fas fa-check-circle mr-2"></i>Checkout Sekarang
                         </button>
-
-                        <button class="w-full mt-3 border border-blue-600 text-blue-600 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors flex items-center justify-center">
-                            <i class="fas fa-plus-circle mr-2"></i>Tambah Item Lainnya
-                        </button>
                     </div>
                 </div>
                 </div>

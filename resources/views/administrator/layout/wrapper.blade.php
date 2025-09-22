@@ -4,8 +4,8 @@
         exit;
     }
 
-    if (request()->is('security/user') && session('unit_id') != 1) {
-        header('Location: ' . url('security/produk'));
+    if (request()->is('administrator/user') && session('unit_id') != 1) {
+        header('Location: ' . url('administrator/produk'));
         exit;
     }
 

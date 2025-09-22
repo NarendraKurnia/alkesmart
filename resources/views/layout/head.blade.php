@@ -26,6 +26,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('umum/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    
 
     <!-- Icon & Fonts -->
     <link rel="icon" href="{{ asset('asset/admin/dist/images/Logo_PLN.png') }}">
@@ -45,7 +46,26 @@
      <style>
     /* kecilkan gap di card image agar badge tidak overlap aneh */
     .card-image { aspect-ratio: 1 / 1; object-fit: cover; }
+    .payment-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .payment-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .payment-option.selected {
+            border: 2px solid #3B82F6;
+            box-shadow: 0 0 0 3px #BFDBFE;
+        }
+        
+        .bank-logo {
+            transition: all 0.3s ease;
+        }
   </style>
+  
 </head>
 <body>
 <!-- Site wrapper -->

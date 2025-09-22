@@ -14,6 +14,7 @@ use App\Http\Controllers\Public\AlatrumkitController;
 use App\Http\Controllers\Public\AlatterapiController;
 use App\Http\Controllers\Public\APDController;
 use App\Http\Controllers\Public\CartController;
+use App\Http\Controllers\Public\CheckoutController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\PeralatanlukaController;
 use App\Http\Controllers\Public\Produk_Controller;
@@ -81,4 +82,18 @@ Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.
 
 // Unit
 Route::get('/category/{slug}', [Produk_Controller::class, 'byCategory'])->name('produk.category');
+
+// Login
+Route::get('login', 'App\Http\Controllers\Public\LoginController@index')->name('login'); 
+Route::get('register', [App\Http\Controllers\Public\LoginController::class, 'register'])->name('register');
+Route::post('register/proses-tambah', 'App\Http\Controllers\Public\LoginController@proses_tambah');
+
+Route::get('administrator/lupa-password', 'App\Http\Controllers\Public\LoginController@lupa_password')->name('administratorlupa_password');
+Route::post('cek-login', 'App\Http\Controllers\Public\LoginController@cek_login')->name('administrator.cek_login');
+Route::get('logout', 'App\Http\Controllers\Public\LoginController@logout')->name('logout');
+
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout/success/{orderId}', [CheckoutController::class, 'success'])->name('checkout.success');
 

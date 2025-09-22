@@ -347,8 +347,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 });
 </script>
+ <script>
+        // JavaScript untuk memilih metode pembayaran
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Hapus kelas selected dari semua opsi
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Tambahkan kelas selected ke opsi yang diklik
+                this.classList.add('selected');
+                
+                // Set nilai input hidden
+                document.getElementById('payment_method').value = this.getAttribute('data-method');
+            });
+        });
+    </script>
 
-
-  
 </body>
 </html>
