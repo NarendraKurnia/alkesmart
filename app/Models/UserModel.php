@@ -47,4 +47,11 @@ class UserModel extends Model
             ->where('password', sha1($password))
             ->first();
     }
+    // hapus
+    public function hapus($data)
+    {
+        DB::table($this->table)
+            ->where('id_user',$data['id_user'])
+            ->delete();
+    }
 }

@@ -12,8 +12,7 @@
 
     {{-- Desktop --}}
 <div class="hidden md:flex items-center gap-4">
-    <a href="{{ route('home.index') }}" class="hover:underline">Fasilitas</a>
-    <a href="{{ route('home.index') }}" class="hover:underline">Lokasi & Kontak</a>
+    <a href="{{ route('lokasi') }}" class="hover:underline">Lokasi & Kontak</a>
 
     <select class="bg-transparent text-white font-semibold focus:outline-none hover:text-gray-300 cursor-pointer">
         <option class="text-black" value="id">Indonesia</option>
@@ -48,8 +47,7 @@
 
 {{-- Mobile --}}
 <div id="mobile-menu" class="hidden flex flex-col items-center gap-3 py-4 border-t border-gray-500 md:hidden bg-dark bg-opacity-90">
-    <a href="{{ route('home.index') }}" class="hover:underline">Fasilitas</a>
-    <a href="{{ route('home.index') }}" class="hover:underline">Lokasi & Kontak</a>
+    <a href="{{ route('lokasi') }}" class="hover:underline">Lokasi & Kontak</a>
 
     <select class="bg-transparent text-white font-semibold focus:outline-none hover:text-gray-300 cursor-pointer">
         <option class="text-black" value="id">Indonesia</option>

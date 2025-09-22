@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProdukModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CheckoutController extends Controller
 {
@@ -34,11 +35,12 @@ class CheckoutController extends Controller
     }
 
     // Upload bukti pembayaran jika ada
-    $buktiPath = null;
     if ($request->hasFile('bukti_pembayaran')) {
-        $file = $request->file('bukti_pembayaran');
-        $buktiPath = $file->store('bukti_pembayaran', 'public');
-    }
+    $file = $request->file('bukti_pembayaran');
+    $filename = time() . '_' . $file->getClientOriginalName(); // beri nama unik
+    $file->move(public_path('admin/upload/transaksi'), $filename);
+    $buktiPath = 'admin/upload/transaksi/' . $filename; // simpan path lengkap ke DB
+}
 
     // Simpan data order
     $orderId = DB::table('orders')->insertGetId([
@@ -91,5 +93,22 @@ public function success($orderId)
 
     return view('checkout.success', compact('order', 'items', 'title'));
 }
+public function downloadPdf($orderId)
+{
+    // Ambil data order
+    $order = DB::table('orders')->where('id', $orderId)->first();
 
+    // Ambil detail produk
+    $items = DB::table('order_items')
+                ->join('produk', 'order_items.product_id', '=', 'produk.id_produk')
+                ->where('order_items.order_id', $orderId)
+                ->select('produk.nama', 'order_items.qty', 'order_items.harga_satuan', 'order_items.total_harga')
+                ->get();
+
+    // Generate PDF
+    $pdf = Pdf::loadView('checkout.pdf', compact('order', 'items'));
+
+    // Download
+    return $pdf->download('transaksi_'.$order->id.'.pdf');
+}
 }

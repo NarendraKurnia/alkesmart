@@ -15,9 +15,10 @@
             <p><strong>Alamat:</strong> {{ $order->alamat }}</p>
             <p><strong>Metode Pembayaran:</strong> {{ strtoupper($order->payment_method) }}</p>
             @if($order->bukti_pembayaran)
-                <p><strong>Bukti Pembayaran:</strong></p>
-                <img src="{{ asset('storage/'.$order->bukti_pembayaran) }}" alt="Bukti Pembayaran" class="w-64 mt-2 rounded-md border">
-            @endif
+    <p><strong>Bukti Pembayaran:</strong></p>
+    <img src="{{ asset($order->bukti_pembayaran) }}" alt="Bukti Pembayaran" class="w-64 mt-2 rounded-md border">
+@endif
+
 
             <h3 class="text-xl font-semibold text-gray-700 mt-4 mb-2">Produk Dibeli</h3>
             <table class="w-full border-collapse text-left">
@@ -47,6 +48,11 @@
                     Rp{{ number_format($order->total_harga,0,',','.') }}
                 </span>
             </div>
+            <a href="{{ route('checkout.pdf', $order->id) }}" 
+   class="inline-block mt-4 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">
+   Download PDF
+</a>
+
 
             <a href="{{ route('home.index') }}" class="inline-block mt-6 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
                 Kembali ke Beranda

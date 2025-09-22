@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Administrator\Banner_Controller;
 use App\Http\Controllers\Administrator\CategoryController;
+use App\Http\Controllers\Administrator\GuestbookController;
+use App\Http\Controllers\Administrator\OrderController;
 use App\Http\Controllers\Administrator\ProdukController;
 use App\Http\Controllers\Administrator\UserController;
+use App\Http\Controllers\Administrator\UsersController;
 use App\Http\Controllers\Public\AlatbedahController;
 use App\Http\Controllers\Public\AlatdiagnostikController;
 use App\Http\Controllers\Public\AlatibuanakController;
@@ -16,6 +19,7 @@ use App\Http\Controllers\Public\APDController;
 use App\Http\Controllers\Public\CartController;
 use App\Http\Controllers\Public\CheckoutController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\LokasiController;
 use App\Http\Controllers\Public\PeralatanlukaController;
 use App\Http\Controllers\Public\Produk_Controller;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +38,12 @@ Route::post('administrator/user/proses-edit', 'App\Http\Controllers\Administrato
 Route::post('administrator/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
 Route::get('administrator/user/ganti-password', [UserController::class, 'ganti_password'])->name('user.ganti_password');
 Route::post('administrator/user/ganti-password/proses', [UserController::class, 'proses_ganti_password'])->name('user.proses_ganti_password');
+
+// user
+Route::get('administrator/users', 'App\Http\Controllers\Administrator\UsersController@index')->name('users');
+Route::get('administrator/users/tambah', 'App\Http\Controllers\Administrator\UsersController@tambah');
+Route::post('administrator/users/proses-tambah', 'App\Http\Controllers\Administrator\UsersController@proses_tambah');
+Route::post('administrator/users/delete/{id}', [UsersController::class, 'delete'])->name('users.delete');
 
 //halaman login
 Route::get('administrator/login', 'App\Http\Controllers\Administrator\LoginController@index')->name('administrator.login'); 
@@ -96,4 +106,24 @@ Route::get('logout', 'App\Http\Controllers\Public\LoginController@logout')->name
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/checkout/success/{orderId}', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/pdf/{orderId}', [CheckoutController::class, 'downloadPDF'])->name('checkout.pdf');
 
+//lokasi
+Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi');
+
+// Submit guestbook dari halaman lokasi
+Route::post('/lokasi/guestbook', [LokasiController::class, 'storeGuestbook'])->name('lokasi.guestbook.store');
+
+Route::get('administrator/guestbook', 'App\Http\Controllers\Administrator\GuestbookController@index');
+Route::post('administrator/guestbook/delete/{id}', [GuestbookController::class, 'delete'])->name('guestbook.delete');
+
+Route::get('administrator/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::put('administrator/orders/{id}/shipping', [OrderController::class, 'updateShipping'])->name('orders.updateShipping');
+Route::delete('administrator/orders/{id}', [OrderController::class, 'delete'])->name('orders.delete');
+
+
+Route::put('/administrator/orders/{id}/update-status', [OrderController::class, 'updateStatus'])
+    ->name('orders.updateStatus');
+
+Route::delete('/administrator/orders/{id}', [OrderController::class, 'destroy'])
+    ->name('orders.delete');

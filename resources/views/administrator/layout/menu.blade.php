@@ -56,10 +56,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ asset('security/apar') }}" class="nav-link">
+            <a href="{{ route('users') }}" class="nav-link">
               <i class="nav-icon fa fa-fire"></i>
               <p>
-                Pemeriksaan Apar
+                User Public
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ asset('administrator/guestbook') }}" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Guestbook
               </p>
             </a>
           </li>
