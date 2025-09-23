@@ -5,7 +5,7 @@
 
         <!-- Logo -->
         <div class="text-left md:text-left">
-            <h1 class="text-3xl font-serif tracking-wide">MORAClub</h1>
+            <h1 class="text-3xl font-serif tracking-wide">Alkesmart</h1>
         </div>
 
         <hr class="border-t border-yellow-500">
@@ -25,9 +25,9 @@
             <!-- Get in Touch -->
             <div class="text-left md:text-left">
                 <h3 class="text-lg font-bold mb-4">Get In Touch</h3>
-                <p class="mb-2">Info@moragroup.id</p>
+                <p class="mb-2">Info@alkes.id</p>
                 <p class="mb-2">031 - 359 54 333</p>
-                <p>Jalan Arief Rahman Hakim No.187, Surabaya 60111</p>
+                <p>Jalan Pasti Sukses, Surabaya 60111</p>
             </div>
 
             <!-- Navigation -->
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="text-center mt-12">
-            <p>Copyright © 2025 ARUM BROMO VILLAS All Rights Reserved</p>
+            <p>Copyright © 2025 Alkesmart All Rights Reserved</p>
         </div>
 </footer>
 

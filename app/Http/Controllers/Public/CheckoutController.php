@@ -111,4 +111,60 @@ public function downloadPdf($orderId)
     // Download
     return $pdf->download('transaksi_'.$order->id.'.pdf');
 }
+
+    // ... method lain ...
+
+    public function cancel(Request $request, $orderId)
+{
+    $order = DB::table('orders')->where('id', $orderId)->first();
+    if (!$order) {
+        return redirect()->back()->with('error', 'Order tidak ditemukan.');
+    }
+
+    // baca tipe column dari INFORMATION_SCHEMA untuk shipping_status dan status
+    $dbName = env('DB_DATABASE');
+
+    $colShip = DB::selectOne(
+        "SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ?",
+        [$dbName, 'orders', 'shipping_status']
+    );
+
+    $colStatus = DB::selectOne(
+        "SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ? AND COLUMN_NAME = ?",
+        [$dbName, 'orders', 'status']
+    );
+
+    $shipType = $colShip->COLUMN_TYPE ?? '';
+    $statusType = $colStatus->COLUMN_TYPE ?? '';
+
+    // cek apakah enum punya 'canceled' atau 'cancelled'
+    $shipHasCanceled = stripos($shipType, "'canceled'") !== false;
+    $shipHasCancelled = stripos($shipType, "'cancelled'") !== false;
+
+    $statusHasCanceled = stripos($statusType, "'canceled'") !== false;
+    $statusHasCancelled = stripos($statusType, "'cancelled'") !== false;
+
+    // pilih ejaan yang sesuai (prioritaskan yang ada di DB)
+    $shipVal = $shipHasCanceled ? 'canceled' : ($shipHasCancelled ? 'cancelled' : 'canceled');
+    $statusVal = $statusHasCanceled ? 'canceled' : ($statusHasCancelled ? 'cancelled' : 'canceled');
+
+    // cek apakah order sudah tidak bisa dibatalkan
+    $currentShip = strtolower($order->shipping_status ?? 'pending');
+    $notCancelable = ['shipped', 'delivered', 'in_transit', 'on_delivery', 'delivering'];
+    if (in_array($currentShip, $notCancelable)) {
+        return redirect()->route('checkout.success', ['orderId' => $orderId])
+                         ->with('error', 'Pesanan sudah dalam proses pengiriman dan tidak dapat dibatalkan.');
+    }
+
+    // lakukan update dengan nilai yang sesuai
+    DB::table('orders')->where('id', $orderId)->update([
+        'shipping_status' => $shipVal,
+        'status' => $statusVal,
+        'updated_at' => now(),
+    ]);
+
+    return redirect()->route('checkout.success', ['orderId' => $orderId])
+                     ->with('success', 'Pesanan berhasil dibatalkan.');
+}
+
 }

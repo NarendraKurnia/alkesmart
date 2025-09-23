@@ -9,13 +9,26 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function index(Request $request) {
-    $orders = DB::table('orders')
-                ->when($request->keywords, fn($q) => $q->where('nama', 'like', "%{$request->keywords}%"))
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
-     $title = "Transaksi ";
-    return view('administrator.orders.index', compact('orders', 'title'));
+    public function index(Request $request)
+{
+    // bangun query (sama seperti sebelumnya)
+    $query = DB::table('orders')
+        ->when($request->keywords, function ($q) use ($request) {
+            $q->where('nama', 'like', "%{$request->keywords}%");
+        })
+        ->orderBy('created_at', 'desc');
+
+    // paginate
+    $orders = $query->paginate(10);
+
+    // data untuk wrapper
+    $data = [
+        'title'   => 'Transaksi',
+        'orders'  => $orders,
+        'content' => 'administrator/orders/index', // path blade konten Anda
+    ];
+
+    return view('administrator/layout/wrapper', $data);
 }
 
 public function updateShipping(Request $request, $id) {

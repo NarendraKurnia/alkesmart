@@ -107,6 +107,8 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/checkout/success/{orderId}', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get('/checkout/pdf/{orderId}', [CheckoutController::class, 'downloadPDF'])->name('checkout.pdf');
+Route::post('checkout/{order}/cancel', [CheckoutController::class, 'cancel'])
+    ->name('orders.cancel');
 
 //lokasi
 Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi');

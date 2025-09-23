@@ -6,7 +6,7 @@
         <svg role="img" xmlns="http://www.w3.org/2000/svg" fill="currentColor" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="16" height="16">
           <path d="..." />
         </svg>
-        <a href="{{ route('home.index') }}" class="underline hover:text-gray-300 whitespace-nowrap">Back to Mora Group</a>
+        <a href="{{ route('home.index') }}" class="underline hover:text-gray-300 whitespace-nowrap">Alkesmart</a>
       </div>
     </div>
 

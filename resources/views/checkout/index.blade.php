@@ -1,7 +1,7 @@
 @include('layout.head')
 @include('layout.header')
 
-<body class="min-h-screen py-8 px-4">
+<div class="min-h-screen py-8 px-4">
     <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 pt-16">
         <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Checkout</h1>
 
@@ -39,7 +39,7 @@
 
                     <div>
                         <label class="block mb-1 font-medium text-gray-700">Email</label>
-                        <input type="text" name="email" value="{{ old('email') }}" placeholder="Bank"
+                        <input type="text" name="email" value="{{ old('email') }}" placeholder="Email"
                             class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
@@ -50,7 +50,6 @@
                 <h2 class="text-2xl font-semibold text-gray-700 border-b pb-2 mb-4">Pilihan Pembayaran</h2>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Contoh Payment Option -->
                     <div class="payment-option bg-white p-4 rounded-lg border border-gray-200 shadow-sm cursor-pointer" data-method="bca">
                         <div class="flex items-center mb-3">
                             <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
@@ -76,7 +75,6 @@
 
                 <input type="hidden" name="payment_method" id="payment_method" value="">
 
-                <!-- Form Upload Foto (Hidden by Default) -->
                 <div id="uploadContainer" class="mt-4 hidden">
                     <label class="block mb-1 font-medium text-gray-700">Upload Bukti Pembayaran</label>
                     <input type="file" name="bukti_pembayaran" accept="image/*" class="w-full border rounded-md p-2">
@@ -110,7 +108,6 @@
                     </table>
                 </div>
 
-                <!-- Total Belanja -->
                 <div class="mt-4 p-4 bg-blue-50 rounded-lg flex justify-between items-center">
                     <span class="text-lg font-medium text-gray-800">Total Belanja:</span>
                     <span class="text-xl font-bold text-blue-700">
@@ -121,33 +118,27 @@
                 </div>
             </section>
 
-            <!-- Tombol Checkout -->
             <button type="submit"
                 class="w-full bg-blue-600 text-white py-3 rounded-md font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
                 <i class="fas fa-check-circle mr-2"></i> Checkout Sekarang
             </button>
         </form>
     </div>
-     <script>
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const paymentInput = document.getElementById('payment_method');
-        const uploadContainer = document.getElementById('uploadContainer');
+</div>
 
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                // Hapus highlight dari semua opsi
-                paymentOptions.forEach(o => o.classList.remove('border-blue-500', 'shadow-lg'));
-                // Highlight opsi terpilih
-                option.classList.add('border-blue-500', 'shadow-lg');
+<script>
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    const paymentInput = document.getElementById('payment_method');
+    const uploadContainer = document.getElementById('uploadContainer');
 
-                // Set metode pembayaran
-                paymentInput.value = option.dataset.method;
-
-                // Tampilkan form upload foto
-                uploadContainer.classList.remove('hidden');
-            });
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            paymentOptions.forEach(o => o.classList.remove('border-blue-500', 'shadow-lg'));
+            option.classList.add('border-blue-500', 'shadow-lg');
+            paymentInput.value = option.dataset.method;
+            uploadContainer.classList.remove('hidden');
         });
-    </script>
-
+    });
+</script>
 
 @include('layout.footer')

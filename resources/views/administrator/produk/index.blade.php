@@ -77,7 +77,7 @@
                     <i class="fa fa-print"></i>
                 </a>
 
-                <!-- Modal Detail Shift -->
+                <!-- Modal Detail Produk-->
                     <div class="modal fade" id="{{ 'exampleModal1' . $item->id_produk }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $item->id_kamar }}" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
